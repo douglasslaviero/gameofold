@@ -12,7 +12,9 @@ public class TicTacToeGame {
         if(board[position] != 0)
             return PlayState.Invalid;
 
-        else if( verifyWin(playerId))
+        board[position] = playerId;
+
+        if( verifyWin(playerId))
             return PlayState.Win;
 
         return PlayState.Valid;
