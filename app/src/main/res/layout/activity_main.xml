@@ -148,26 +148,27 @@
         tools:layout_editor_absoluteX="66dp">
 
         <ImageButton
-            android:onClick="takeASelfie1"
             android:id="@+id/player1ImgButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="takeASelfie1" />
 
         <ImageButton
-            android:onClick="takeASelfie2"
             android:id="@+id/player2ImgButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="takeASelfie2" />
 
         <Button
             android:id="@+id/clearButton"
-            android:text="C"
-            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="C"
+            android:textSize="20sp"
+            android:onClick="clear"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
