@@ -33,6 +33,7 @@
                 android:background="@color/white"
                 android:padding="20sp"
                 android:tag="0"
+                android:onClick="play0"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -44,6 +45,7 @@
                 android:background="@color/white"
                 android:padding="20sp"
                 android:tag="1"
+                android:onClick="play1"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -55,6 +57,7 @@
                 android:background="@color/white"
                 android:padding="20sp"
                 android:tag="2"
+                android:onClick="play2"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
         </LinearLayout>
 
@@ -73,6 +76,7 @@
                 android:background="@color/white"
                 android:padding="20sp"
                 android:tag="3"
+                android:onClick="play3"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -84,6 +88,7 @@
                 android:background="@color/white"
                 android:padding="20sp"
                 android:tag="4"
+                android:onClick="play4"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -95,6 +100,7 @@
                 android:background="@color/white"
                 android:padding="20sp"
                 android:tag="5"
+                android:onClick="play5"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
         </LinearLayout>
 
@@ -113,6 +119,7 @@
                 android:background="@color/white"
                 android:padding="20sp"
                 android:tag="6"
+                android:onClick="play6"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -124,6 +131,7 @@
                 android:background="@color/white"
                 android:padding="20sp"
                 android:tag="7"
+                android:onClick="play7"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -135,6 +143,7 @@
                 android:background="@color/white"
                 android:padding="20sp"
                 android:tag="8"
+                android:onClick="play8"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
         </LinearLayout>
     </LinearLayout>

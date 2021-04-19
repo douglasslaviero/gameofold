@@ -1,6 +1,8 @@
 package br.ucs.android.gameofold;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     private File selfieFile1 = null;
     private File selfieFile2 = null;
+    private TicTacToeGame game;
+    private int currentPlayerId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
                         PERMISSAO_REQUEST);
             }
         }
+
+        game = new TicTacToeGame();
     }
 
     @Override
@@ -96,14 +102,23 @@ public class MainActivity extends AppCompatActivity {
         ib1.setImageBitmap(null);
         ImageButton ib2 = findViewById(R.id.player2ImgButton);
         ib2.setImageBitmap(null);
+
+        selfieFile1 = selfieFile2 = null;
+        currentPlayerId = -1;
     }
 
     public void takeASelfie1(View view) {
-        this.takeASelfie(view, selfieFile1, SELFIE1);
+        if(selfieFile1 == null)
+            this.takeASelfie(view, selfieFile1, SELFIE1);
+        else if(currentPlayerId == 0)
+            currentPlayerId = 1;
     }
 
     public void takeASelfie2(View view) {
-        this.takeASelfie(view, selfieFile2, SELFIE2);
+        if(selfieFile2 == null)
+            this.takeASelfie(view, selfieFile2, SELFIE2);
+        else if(currentPlayerId == 0)
+            currentPlayerId = 2;
     }
 
     public void takeASelfie(View view, File selfieFile, int selfieCode) {
@@ -130,6 +145,78 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, selfieCode);
             }
         }
+    }
+
+    public void play0(View view){
+        ImageButton ib = findViewById(R.id.imageButton0);
+        this.play(view, 0, ib);
+    }
+
+    public void play1(View view){
+        ImageButton ib = findViewById(R.id.imageButton1);
+        this.play(view, 1, ib);
+    }
+
+    public void play2(View view){
+        ImageButton ib = findViewById(R.id.imageButton2);
+        this.play(view, 2, ib);
+    }
+
+    public void play3(View view){
+        ImageButton ib = findViewById(R.id.imageButton3);
+        this.play(view, 3, ib);
+    }
+
+    public void play4(View view){
+        ImageButton ib = findViewById(R.id.imageButton4);
+        this.play(view, 4, ib);
+    }
+
+    public void play5(View view){
+        ImageButton ib = findViewById(R.id.imageButton5);
+        this.play(view, 5, ib);
+    }
+
+    public void play6(View view){
+        ImageButton ib = findViewById(R.id.imageButton6);
+        this.play(view, 6, ib);
+    }
+
+    public void play7(View view){
+        ImageButton ib = findViewById(R.id.imageButton7);
+        this.play(view, 7, ib);
+    }
+
+    public void play8(View view){
+        ImageButton ib = findViewById(R.id.imageButton8);
+        this.play(view, 8, ib);
+    }
+
+    private void play(View view, int position, ImageButton ib){
+        if(currentPlayerId % 2 == 0)
+            ib.setImageBitmap(BitmapFactory.decodeFile(selfieFile2.getAbsolutePath()));
+        else
+            ib.setImageBitmap(BitmapFactory.decodeFile(selfieFile1.getAbsolutePath()));
+
+        if(game.play(position, currentPlayerId % 2 + 1) == PlayState.Win){
+            alert("Parabeins", "era o mínimo né piá");
+            clear(view);
+        }
+
+        currentPlayerId++;
+    }
+
+    private void alert(String titulo, String mensagem) {
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle(titulo);
+        alertDialog.setMessage(mensagem);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     private File createFile() throws IOException {
