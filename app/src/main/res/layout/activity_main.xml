@@ -30,10 +30,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:padding="20sp"
-                android:tag="0"
                 android:onClick="play0"
+                android:scaleType="centerCrop"
+                android:tag="0"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -42,10 +43,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:padding="20sp"
-                android:tag="1"
                 android:onClick="play1"
+                android:scaleType="centerCrop"
+                android:tag="1"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -54,10 +56,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:padding="20sp"
-                android:tag="2"
                 android:onClick="play2"
+                android:scaleType="centerCrop"
+                android:tag="2"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
         </LinearLayout>
 
@@ -73,10 +76,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:padding="20sp"
-                android:tag="3"
                 android:onClick="play3"
+                android:scaleType="centerCrop"
+                android:tag="3"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -85,10 +89,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:padding="20sp"
-                android:tag="4"
                 android:onClick="play4"
+                android:scaleType="centerCrop"
+                android:tag="4"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -97,10 +102,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:padding="20sp"
-                android:tag="5"
                 android:onClick="play5"
+                android:scaleType="centerCrop"
+                android:tag="5"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
         </LinearLayout>
 
@@ -116,10 +122,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:padding="20sp"
-                android:tag="6"
                 android:onClick="play6"
+                android:scaleType="centerCrop"
+                android:tag="6"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -128,10 +135,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:padding="20sp"
-                android:tag="7"
                 android:onClick="play7"
+                android:scaleType="centerCrop"
+                android:tag="7"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageButton
@@ -140,15 +148,17 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:padding="20sp"
-                android:tag="8"
                 android:onClick="play8"
+                android:scaleType="centerCrop"
+                android:tag="8"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="80sp"
         android:orientation="horizontal"
@@ -161,25 +171,51 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="takeASelfie1"
             android:scaleType="fitXY"
-            android:onClick="takeASelfie1" />
+            />
 
         <ImageButton
             android:id="@+id/player2ImgButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:onClick="takeASelfie2" />
+            android:onClick="takeASelfie2"
+            android:scaleType="fitXY" />
 
         <Button
             android:id="@+id/clearButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="clear"
             android:text="C"
-            android:textSize="20sp"
-            android:onClick="clear"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/player1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Jogador 1"
+        android:textColor="@color/white"
+        android:paddingLeft="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/player2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Jogador 2"
+        android:textColor="@color/white"
+        android:paddingRight="155dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
