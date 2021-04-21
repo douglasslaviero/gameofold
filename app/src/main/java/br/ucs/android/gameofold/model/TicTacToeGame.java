@@ -1,15 +1,14 @@
 package br.ucs.android.gameofold.model;
 
-enum PlayState {
-    Valid,
-    Invalid,
-    Win
-}
-
 public class TicTacToeGame {
     int[] board;
 
     public TicTacToeGame() {
+        clearBoard();
+    }
+
+    public void clearBoard()
+    {
         this.board = new int[9];
     }
 
@@ -30,25 +29,44 @@ public class TicTacToeGame {
     }
 
     private Boolean verifyVertical(int player) {
-        int firstColumn = board[0] + board[3] + board[6];
-        int secondColumn = board[1] + board[4] + board[7];
-        int thirdColumn =  board[2] + board[5] + board[8];
+        String firstColumn = makeString(board[0], board[3], board[6]);
+        String secondColumn = makeString(board[1], board[4], board[7]);
+        String thirdColumn = makeString(board[2], board[5], board[8]);
 
-        return firstColumn / 3 == player || secondColumn / 3 == player || thirdColumn / 3 == player;
+        String playerString = makeString(player);
+
+        return firstColumn.equals(playerString)
+                || secondColumn.equals(playerString)
+                || thirdColumn.equals(playerString);
     }
 
     private Boolean verifyHorizontal(int player) {
-        int firstLine = board[0] + board[1] + board[2];
-        int secondLine = board[3] + board[4] + board[5];
-        int thirdLine =  board[6] + board[7] + board[8];
+        String firstLine = makeString(board[0], board[1], board[2]);
+        String secondLine = makeString(board[3], board[4], board[5]);
+        String thirdLine = makeString(board[6], board[7], board[8]);
 
-        return firstLine / 3 == player || secondLine / 3 == player || thirdLine / 3 == player;
+        String playerString = makeString(player);
+
+        return firstLine.equals(playerString)
+                || secondLine.equals(playerString)
+                || thirdLine.equals(playerString);
     }
 
     private Boolean verifyDiagonal(int player) {
-        int crescDiagonal = board[0] + board[1] + board[2];
-        int decrescDiagonal = board[2] + board[4] + board[6];
+        String crescDiagonal = makeString(board[0], board[4], board[8]);
+        String decrescDiagonal = makeString(board[2], board[4], board[6]);
 
-        return crescDiagonal / 3 == player || decrescDiagonal / 3 == player;
+        String playerString = makeString(player);
+
+        return crescDiagonal.equals(playerString)
+                || decrescDiagonal.equals(playerString);
+    }
+
+    private String makeString(int n) {
+        return makeString(n, n, n);
+    }
+
+    private String makeString(int n1, int n2, int n3) {
+        return String.format("%d%d%d", n1, n2, n3);
     }
 }

@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import br.ucs.android.gameofold.model.PlayState;
+import br.ucs.android.gameofold.model.TicTacToeGame;
+
 public class MainActivity extends AppCompatActivity {
 
     private final int GALERIA_IMAGENS = 1;
@@ -105,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
         selfieFile1 = selfieFile2 = null;
         currentPlayerId = -1;
+
+        game.clearBoard();
+        clearButtons();
     }
 
     public void takeASelfie1(View view) {
@@ -193,12 +199,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void play(View view, int position, ImageButton ib){
+
+        if(selfieFile1 == null)
+        {
+            alert("Dai não né man", "Oh jogador 1, tem que tirar a foto antes po");
+            return;
+        }
+        else if(selfieFile2 == null)
+        {
+            alert("Dai não né man", "Oh jogador 2, tem que tirar a foto antes po");
+            return;
+        }
+
+        PlayState play = game.play(position, currentPlayerId % 2 + 1);
+
+        if(play == PlayState.Invalid)
+            return;
+
         if(currentPlayerId % 2 == 0)
             ib.setImageBitmap(BitmapFactory.decodeFile(selfieFile2.getAbsolutePath()));
         else
             ib.setImageBitmap(BitmapFactory.decodeFile(selfieFile1.getAbsolutePath()));
 
-        if(game.play(position, currentPlayerId % 2 + 1) == PlayState.Win){
+        if(play == PlayState.Win){
             alert("Parabeins", "era o mínimo né piá");
             clear(view);
         }
@@ -222,7 +245,28 @@ public class MainActivity extends AppCompatActivity {
     private File createFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_Hhmmss").format(new Date());
         File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File image = new File(folder.getPath() + File.separator + "JPG_" + timeStamp + ".jpg");
-        return image;
+        return new File(folder.getPath() + File.separator + "JPG_" + timeStamp + ".jpg");
+    }
+
+    private void clearButtons()
+    {
+        ImageButton ib0 = findViewById(R.id.imageButton0);
+        ib0.setImageBitmap(null);
+        ImageButton ib1 = findViewById(R.id.imageButton1);
+        ib1.setImageBitmap(null);
+        ImageButton ib2 = findViewById(R.id.imageButton2);
+        ib2.setImageBitmap(null);
+        ImageButton ib3 = findViewById(R.id.imageButton3);
+        ib3.setImageBitmap(null);
+        ImageButton ib4 = findViewById(R.id.imageButton4);
+        ib4.setImageBitmap(null);
+        ImageButton ib5 = findViewById(R.id.imageButton5);
+        ib5.setImageBitmap(null);
+        ImageButton ib6 = findViewById(R.id.imageButton6);
+        ib6.setImageBitmap(null);
+        ImageButton ib7 = findViewById(R.id.imageButton7);
+        ib7.setImageBitmap(null);
+        ImageButton ib8 = findViewById(R.id.imageButton8);
+        ib8.setImageBitmap(null);
     }
 }
