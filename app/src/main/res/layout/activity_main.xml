@@ -33,9 +33,9 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:onClick="play0"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:tag="0"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:padding="5dp"/>
 
             <ImageButton
                 android:id="@+id/imageButton1"
@@ -46,9 +46,9 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:onClick="play1"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:tag="1"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:padding="5dp"/>
 
             <ImageButton
                 android:id="@+id/imageButton2"
@@ -59,9 +59,9 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:onClick="play2"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:tag="2"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:padding="5dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -79,9 +79,9 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:onClick="play3"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:tag="3"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:padding="5dp"/>
 
             <ImageButton
                 android:id="@+id/imageButton4"
@@ -92,9 +92,9 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:onClick="play4"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:tag="4"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:padding="5dp"/>
 
             <ImageButton
                 android:id="@+id/imageButton5"
@@ -105,9 +105,9 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:onClick="play5"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:tag="5"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:padding="5dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -125,9 +125,9 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:onClick="play6"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:tag="6"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:padding="5dp"/>
 
             <ImageButton
                 android:id="@+id/imageButton7"
@@ -138,9 +138,9 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:onClick="play7"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:tag="7"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:padding="5dp"/>
 
             <ImageButton
                 android:id="@+id/imageButton8"
@@ -151,9 +151,9 @@
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:onClick="play8"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:tag="8"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:padding="5dp"/>
         </LinearLayout>
     </LinearLayout>
 

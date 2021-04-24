@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
@@ -30,7 +29,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import br.ucs.android.gameofold.model.PlayState;
 import br.ucs.android.gameofold.model.TicTacToeGame;
@@ -51,11 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
     private HashMap<Integer, Integer> boardMap = new HashMap<>();
 
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        handler  = new Handler();
 
         // Pede permissão para acessar as mídias gravadas no dispositivo
         if (ContextCompat.checkSelfPermission(this,
@@ -244,19 +245,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (play == PlayState.Win) {
             showWinner(game.winCondition);
-            //(new Handler()).postDelayed(this::anounceWinner, 3000);
 
-            try
-            {
-                Thread.sleep(3000);
-            }
-            catch(InterruptedException ex)
-            {
-                Thread.currentThread().interrupt();
-            }
-
-            anounceWinner();
-            clearGame();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    anounceWinner();
+                    clearGame();
+                }
+            }, 3000);
         } else if (play == PlayState.Draw) {
             alert("Empate", "O jogo empatou.");
             clearGame();
@@ -307,9 +303,9 @@ public class MainActivity extends AppCompatActivity {
         ImageButton ib1 = findViewById(boardMap.get(n1));
         ImageButton ib2 = findViewById(boardMap.get(n2));
         ImageButton ib3 = findViewById(boardMap.get(n3));
-        ib1.setForeground(winnerShape);
-        ib2.setForeground(winnerShape);
-        ib3.setForeground(winnerShape);
+        ib1.setBackgroundColor(Color.GREEN);
+        ib2.setBackgroundColor(Color.GREEN);
+        ib3.setBackgroundColor(Color.GREEN);
     }
 
     private void alert(String titulo, String mensagem) {
@@ -336,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
         {
             ImageButton ib = findViewById(boardMap.get(i));
             ib.setImageBitmap(null);
-            ib.setForeground(null);
+            ib.setBackgroundColor(Color.WHITE);
         }
     }
 
