@@ -8,15 +8,9 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="420dp"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -155,67 +149,50 @@
                 android:tag="8"
                 android:padding="5dp"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/player1ImgButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:background="#808080"
+                android:onClick="takeASelfie1"
+                android:padding="5dp"
+                android:scaleType="fitXY" />
+
+            <ImageButton
+                android:id="@+id/player2ImgButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:background="#808080"
+                android:onClick="takeASelfie2"
+                android:padding="5dp"
+                android:scaleType="fitXY" />
+
+            <Button
+                android:id="@+id/clearButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:onClick="clear"
+                android:background="@color/purple_200"
+                android:padding="5dp"
+                android:text="C"
+                android:textSize="20sp" />
+        </LinearLayout>
+
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="80sp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:layout_editor_absoluteX="66dp">
-
-        <ImageButton
-            android:id="@+id/player1ImgButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="takeASelfie1"
-            android:scaleType="fitXY"
-            />
-
-        <ImageButton
-            android:id="@+id/player2ImgButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="takeASelfie2"
-            android:scaleType="fitXY" />
-
-        <Button
-            android:id="@+id/clearButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="clear"
-            android:text="C"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/player1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Jogador 1"
-        android:textColor="@color/white"
-        android:paddingLeft="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <TextView
-        android:id="@+id/player2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Jogador 2"
-        android:textColor="@color/white"
-        android:paddingRight="155dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

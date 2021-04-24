@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private final int PERMISSAO_REQUEST = 2;
     private final int SELFIE1 = 3;
     private final int SELFIE2 = 4;
-    private ShapeDrawable winnerShape;
 
     private File selfieFile1 = null;
     private File selfieFile2 = null;
@@ -81,12 +80,6 @@ public class MainActivity extends AppCompatActivity {
                         PERMISSAO_REQUEST);
             }
         }
-
-        winnerShape = new ShapeDrawable();
-        winnerShape.setShape(new RectShape());
-        winnerShape.getPaint().setColor(Color.GREEN);
-        winnerShape.getPaint().setStrokeWidth(30f);
-        winnerShape.getPaint().setStyle(Paint.Style.STROKE);
 
         game = new TicTacToeGame();
 
@@ -300,12 +293,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void showWinner(int n1, int n2, int n3)
     {
+        ImageButton player;
+
+        if(currentPlayerId % 2 == 0)
+            player = findViewById(R.id.player2ImgButton);
+        else
+            player = findViewById(R.id.player1ImgButton);
+
         ImageButton ib1 = findViewById(boardMap.get(n1));
         ImageButton ib2 = findViewById(boardMap.get(n2));
         ImageButton ib3 = findViewById(boardMap.get(n3));
+
         ib1.setBackgroundColor(Color.GREEN);
         ib2.setBackgroundColor(Color.GREEN);
         ib3.setBackgroundColor(Color.GREEN);
+        player.setBackgroundColor(Color.GREEN);
     }
 
     private void alert(String titulo, String mensagem) {
@@ -334,6 +336,12 @@ public class MainActivity extends AppCompatActivity {
             ib.setImageBitmap(null);
             ib.setBackgroundColor(Color.WHITE);
         }
+
+        ImageButton player1 = findViewById(R.id.player2ImgButton);
+        player1.setBackgroundColor(Color.GRAY);
+        
+        ImageButton player2 = findViewById(R.id.player1ImgButton);
+        player2.setBackgroundColor(Color.GRAY);
     }
 
     private void clearGame() {
