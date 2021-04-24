@@ -29,6 +29,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import br.ucs.android.gameofold.model.PlayState;
 import br.ucs.android.gameofold.model.TicTacToeGame;
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private TicTacToeGame game;
     private int currentPlayerId = 0;
 
+    private HashMap<Integer, Integer> boardMap = new HashMap<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +61,8 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         PERMISSAO_REQUEST);
@@ -69,9 +73,8 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         PERMISSAO_REQUEST);
@@ -85,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
         winnerShape.getPaint().setStyle(Paint.Style.STROKE);
 
         game = new TicTacToeGame();
+
+        boardMap.put(0, R.id.imageButton0);
+        boardMap.put(1, R.id.imageButton1);
+        boardMap.put(2, R.id.imageButton2);
+        boardMap.put(3, R.id.imageButton3);
+        boardMap.put(4, R.id.imageButton4);
+        boardMap.put(5, R.id.imageButton5);
+        boardMap.put(6, R.id.imageButton6);
+        boardMap.put(7, R.id.imageButton7);
+        boardMap.put(8, R.id.imageButton8);
     }
 
     @Override
@@ -121,23 +134,20 @@ public class MainActivity extends AppCompatActivity {
         ib2.setImageBitmap(null);
 
         selfieFile1 = selfieFile2 = null;
-        currentPlayerId = -1;
-
-        game.clearBoard();
-        clearButtons();
+        clearGame();
     }
 
     public void takeASelfie1(View view) {
-        if(selfieFile1 == null)
+        if (selfieFile1 == null)
             this.takeASelfie(view, selfieFile1, SELFIE1);
-        else if(currentPlayerId == 0)
+        else if (currentPlayerId == 0)
             currentPlayerId = 1;
     }
 
     public void takeASelfie2(View view) {
-        if(selfieFile2 == null)
+        if (selfieFile2 == null)
             this.takeASelfie(view, selfieFile2, SELFIE2);
-        else if(currentPlayerId == 0)
+        else if (currentPlayerId == 0)
             currentPlayerId = 2;
     }
 
@@ -167,190 +177,139 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void firstLineWinner(){
-        ImageButton ib1 = findViewById(R.id.imageButton0);
-        ImageButton ib2 = findViewById(R.id.imageButton1);
-        ImageButton ib3 = findViewById(R.id.imageButton2);
-        ib1.setForeground(winnerShape);
-        ib2.setForeground(winnerShape);
-        ib3.setForeground(winnerShape);
-
-    }
-
-    private void secondLineWinner(){
-        ImageButton ib1 = findViewById(R.id.imageButton3);
-        ImageButton ib2 = findViewById(R.id.imageButton4);
-        ImageButton ib3 = findViewById(R.id.imageButton5);
-        ib1.setForeground(winnerShape);
-        ib2.setForeground(winnerShape);
-        ib3.setForeground(winnerShape);
-    }
-
-    private void thirdLineWinner(){
-        ImageButton ib1 = findViewById(R.id.imageButton6);
-        ImageButton ib2 = findViewById(R.id.imageButton7);
-        ImageButton ib3 = findViewById(R.id.imageButton8);
-        ib1.setForeground(winnerShape);
-        ib2.setForeground(winnerShape);
-        ib3.setForeground(winnerShape);
-    }
-
-    private void firstColumnWinner(){
-        ImageButton ib1 = findViewById(R.id.imageButton0);
-        ImageButton ib2 = findViewById(R.id.imageButton3);
-        ImageButton ib3 = findViewById(R.id.imageButton6);
-        ib1.setForeground(winnerShape);
-        ib2.setForeground(winnerShape);
-        ib3.setForeground(winnerShape);
-    }
-
-    private void secondColumnWinner(){
-        ImageButton ib1 = findViewById(R.id.imageButton1);
-        ImageButton ib2 = findViewById(R.id.imageButton4);
-        ImageButton ib3 = findViewById(R.id.imageButton7);
-        ib1.setForeground(winnerShape);
-        ib2.setForeground(winnerShape);
-        ib3.setForeground(winnerShape);
-    }
-
-    private void thirdColumnWinner(){
-        ImageButton ib1 = findViewById(R.id.imageButton2);
-        ImageButton ib2 = findViewById(R.id.imageButton5);
-        ImageButton ib3 = findViewById(R.id.imageButton8);
-        ib1.setForeground(winnerShape);
-        ib2.setForeground(winnerShape);
-        ib3.setForeground(winnerShape);
-    }
-
-    private void crescDiagonalWinner(){
-        ImageButton ib1 = findViewById(R.id.imageButton0);
-        ImageButton ib2 = findViewById(R.id.imageButton4);
-        ImageButton ib3 = findViewById(R.id.imageButton8);
-        ib1.setForeground(winnerShape);
-        ib2.setForeground(winnerShape);
-        ib3.setForeground(winnerShape);
-    }
-
-    private void decrescDiagonalWinner(){
-        ImageButton ib1 = findViewById(R.id.imageButton2);
-        ImageButton ib2 = findViewById(R.id.imageButton4);
-        ImageButton ib3 = findViewById(R.id.imageButton6);
-        ib1.setForeground(winnerShape);
-        ib2.setForeground(winnerShape);
-        ib3.setForeground(winnerShape);
-    }
-
-    public void play0(View view){
+    public void play0(View view) {
         ImageButton ib = findViewById(R.id.imageButton0);
         this.play(view, 0, ib);
     }
 
-    public void play1(View view){
+    public void play1(View view) {
         ImageButton ib = findViewById(R.id.imageButton1);
         this.play(view, 1, ib);
     }
 
-    public void play2(View view){
+    public void play2(View view) {
         ImageButton ib = findViewById(R.id.imageButton2);
         this.play(view, 2, ib);
     }
 
-    public void play3(View view){
+    public void play3(View view) {
         ImageButton ib = findViewById(R.id.imageButton3);
         this.play(view, 3, ib);
     }
 
-    public void play4(View view){
+    public void play4(View view) {
         ImageButton ib = findViewById(R.id.imageButton4);
         this.play(view, 4, ib);
     }
 
-    public void play5(View view){
+    public void play5(View view) {
         ImageButton ib = findViewById(R.id.imageButton5);
         this.play(view, 5, ib);
     }
 
-    public void play6(View view){
+    public void play6(View view) {
         ImageButton ib = findViewById(R.id.imageButton6);
         this.play(view, 6, ib);
     }
 
-    public void play7(View view){
+    public void play7(View view) {
         ImageButton ib = findViewById(R.id.imageButton7);
         this.play(view, 7, ib);
     }
 
-    public void play8(View view){
+    public void play8(View view) {
         ImageButton ib = findViewById(R.id.imageButton8);
         this.play(view, 8, ib);
     }
 
-    private void play(View view, int position, ImageButton ib){
+    private void play(View view, int position, ImageButton ib) {
 
-        if(selfieFile1 == null)
-        {
-            alert("Dai não né man", "Oh jogador 1, tem que tirar a foto antes po");
+        if (selfieFile1 == null) {
+            alert("Selfie não tirada", "Jogador 1, por favor tire sua selfie antes de jogar!");
             return;
-        }
-        else if(selfieFile2 == null)
-        {
-            alert("Dai não né man", "Oh jogador 2, tem que tirar a foto antes po");
+        } else if (selfieFile2 == null) {
+            alert("Selfie não tirada", "Jogador 2, por favor tire sua selfie antes de jogar!");
             return;
         }
 
         PlayState play = game.play(position, currentPlayerId % 2 + 1);
 
-        if(play == PlayState.Invalid)
+        if (play == PlayState.Invalid)
             return;
 
-        if(currentPlayerId % 2 == 0)
+        if (currentPlayerId % 2 == 0)
             ib.setImageBitmap(BitmapFactory.decodeFile(selfieFile2.getAbsolutePath()));
         else
             ib.setImageBitmap(BitmapFactory.decodeFile(selfieFile1.getAbsolutePath()));
 
-        if(play == PlayState.Win){
+        if (play == PlayState.Win) {
             showWinner(game.winCondition);
-            anounceWinner();
             //(new Handler()).postDelayed(this::anounceWinner, 3000);
-            //clear(view);
-        }
-        else if (play == PlayState.Draw){
+
+            try
+            {
+                Thread.sleep(3000);
+            }
+            catch(InterruptedException ex)
+            {
+                Thread.currentThread().interrupt();
+            }
+
+            anounceWinner();
+            clearGame();
+        } else if (play == PlayState.Draw) {
             alert("Empate", "O jogo empatou.");
-            clear(view);
+            clearGame();
         }
 
         currentPlayerId++;
     }
 
-    private void anounceWinner(){
+    private void anounceWinner() {
         int playerId = 1;
-        if (currentPlayerId % 2 == 0){
+        if (currentPlayerId % 2 == 0) {
             playerId = 2;
         }
-        alert("Parabéns", String.format("Jogador "+ playerId +" venceu!"));
+        alert("Parabéns", String.format("Jogador " + playerId + " venceu!"));
     }
 
-    private void showWinner(WinCondition winCondition){
-    switch (winCondition){
-        case FirstLine: firstLineWinner();
-        break;
-        case SecondLine: secondLineWinner();
-        break;
-        case ThirdLine: thirdLineWinner();
-        break;
-        case FirstColumn: firstColumnWinner();
-        break;
-        case SecondColumn: secondColumnWinner();
-        break;
-        case ThirdColumn: thirdColumnWinner();
-        break;
-        case CrescDiagonal: crescDiagonalWinner();
-        break;
-        case DecrescDiagonal: decrescDiagonalWinner();
-        break;
+    private void showWinner(WinCondition winCondition) {
+        switch (winCondition) {
+            case FirstLine:
+                showWinner(0, 1, 2);
+                break;
+            case SecondLine:
+                showWinner(3, 4, 5);
+                break;
+            case ThirdLine:
+                showWinner(6, 7, 8);
+                break;
+            case FirstColumn:
+                showWinner(0, 3, 6);
+                break;
+            case SecondColumn:
+                showWinner(1, 4, 7);
+                break;
+            case ThirdColumn:
+                showWinner(2, 5, 8);
+                break;
+            case CrescDiagonal:
+                showWinner(0, 4, 8);
+                break;
+            case DecrescDiagonal:
+                showWinner(2, 4, 6);
+                break;
+        }
     }
 
-
+    private void showWinner(int n1, int n2, int n3)
+    {
+        ImageButton ib1 = findViewById(boardMap.get(n1));
+        ImageButton ib2 = findViewById(boardMap.get(n2));
+        ImageButton ib3 = findViewById(boardMap.get(n3));
+        ib1.setForeground(winnerShape);
+        ib2.setForeground(winnerShape);
+        ib3.setForeground(winnerShape);
     }
 
     private void alert(String titulo, String mensagem) {
@@ -372,39 +331,16 @@ public class MainActivity extends AppCompatActivity {
         return new File(folder.getPath() + File.separator + "JPG_" + timeStamp + ".jpg");
     }
 
-    private void clearButtons()
-    {
-        ImageButton ib0 = findViewById(R.id.imageButton0);
-        ib0.setImageBitmap(null);
-        ib0.setForeground(null);
-        ImageButton ib1 = findViewById(R.id.imageButton1);
-        ib1.setImageBitmap(null);
-        ib1.setForeground(null);
-        ImageButton ib2 = findViewById(R.id.imageButton2);
-        ib2.setImageBitmap(null);
-        ib2.setForeground(null);
-        ImageButton ib3 = findViewById(R.id.imageButton3);
-        ib3.setImageBitmap(null);
-        ib3.setForeground(null);
-        ImageButton ib4 = findViewById(R.id.imageButton4);
-        ib4.setImageBitmap(null);
-        ib4.setForeground(null);
-        ImageButton ib5 = findViewById(R.id.imageButton5);
-        ib5.setImageBitmap(null);
-        ib5.setForeground(null);
-        ImageButton ib6 = findViewById(R.id.imageButton6);
-        ib6.setImageBitmap(null);
-        ib6.setForeground(null);
-        ImageButton ib7 = findViewById(R.id.imageButton7);
-        ib7.setImageBitmap(null);
-        ib7.setForeground(null);
-        ImageButton ib8 = findViewById(R.id.imageButton8);
-        ib8.setImageBitmap(null);
-        ib8.setForeground(null);
+    private void clearButtons() {
+        for(int i = 0; i < 9; i++)
+        {
+            ImageButton ib = findViewById(boardMap.get(i));
+            ib.setImageBitmap(null);
+            ib.setForeground(null);
+        }
     }
 
-    private void clearGame()
-    {
+    private void clearGame() {
         currentPlayerId = 0;
         game.clearBoard();
         clearButtons();

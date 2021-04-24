@@ -23,7 +23,6 @@ public class TicTacToeGame {
         
         if (verifyDraw())
             return PlayState.Draw;
-        
 
         return PlayState.Valid;
     }
