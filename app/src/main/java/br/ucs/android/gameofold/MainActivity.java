@@ -7,9 +7,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
@@ -26,6 +32,7 @@ import java.util.Date;
 
 import br.ucs.android.gameofold.model.PlayState;
 import br.ucs.android.gameofold.model.TicTacToeGame;
+import br.ucs.android.gameofold.model.WinCondition;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private final int PERMISSAO_REQUEST = 2;
     private final int SELFIE1 = 3;
     private final int SELFIE2 = 4;
+    private ShapeDrawable winnerShape;
 
     private File selfieFile1 = null;
     private File selfieFile2 = null;
@@ -69,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
                         PERMISSAO_REQUEST);
             }
         }
+
+        winnerShape = new ShapeDrawable();
+        winnerShape.setShape(new RectShape());
+        winnerShape.getPaint().setColor(Color.GREEN);
+        winnerShape.getPaint().setStrokeWidth(30f);
+        winnerShape.getPaint().setStyle(Paint.Style.STROKE);
 
         game = new TicTacToeGame();
     }
@@ -153,6 +167,79 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void firstLineWinner(){
+        ImageButton ib1 = findViewById(R.id.imageButton0);
+        ImageButton ib2 = findViewById(R.id.imageButton1);
+        ImageButton ib3 = findViewById(R.id.imageButton2);
+        ib1.setForeground(winnerShape);
+        ib2.setForeground(winnerShape);
+        ib3.setForeground(winnerShape);
+
+    }
+
+    private void secondLineWinner(){
+        ImageButton ib1 = findViewById(R.id.imageButton3);
+        ImageButton ib2 = findViewById(R.id.imageButton4);
+        ImageButton ib3 = findViewById(R.id.imageButton5);
+        ib1.setForeground(winnerShape);
+        ib2.setForeground(winnerShape);
+        ib3.setForeground(winnerShape);
+    }
+
+    private void thirdLineWinner(){
+        ImageButton ib1 = findViewById(R.id.imageButton6);
+        ImageButton ib2 = findViewById(R.id.imageButton7);
+        ImageButton ib3 = findViewById(R.id.imageButton8);
+        ib1.setForeground(winnerShape);
+        ib2.setForeground(winnerShape);
+        ib3.setForeground(winnerShape);
+    }
+
+    private void firstColumnWinner(){
+        ImageButton ib1 = findViewById(R.id.imageButton0);
+        ImageButton ib2 = findViewById(R.id.imageButton3);
+        ImageButton ib3 = findViewById(R.id.imageButton6);
+        ib1.setForeground(winnerShape);
+        ib2.setForeground(winnerShape);
+        ib3.setForeground(winnerShape);
+    }
+
+    private void secondColumnWinner(){
+        ImageButton ib1 = findViewById(R.id.imageButton1);
+        ImageButton ib2 = findViewById(R.id.imageButton4);
+        ImageButton ib3 = findViewById(R.id.imageButton7);
+        ib1.setForeground(winnerShape);
+        ib2.setForeground(winnerShape);
+        ib3.setForeground(winnerShape);
+    }
+
+    private void thirdColumnWinner(){
+        ImageButton ib1 = findViewById(R.id.imageButton2);
+        ImageButton ib2 = findViewById(R.id.imageButton5);
+        ImageButton ib3 = findViewById(R.id.imageButton8);
+        ib1.setForeground(winnerShape);
+        ib2.setForeground(winnerShape);
+        ib3.setForeground(winnerShape);
+    }
+
+    private void crescDiagonalWinner(){
+        ImageButton ib1 = findViewById(R.id.imageButton0);
+        ImageButton ib2 = findViewById(R.id.imageButton4);
+        ImageButton ib3 = findViewById(R.id.imageButton8);
+        ib1.setForeground(winnerShape);
+        ib2.setForeground(winnerShape);
+        ib3.setForeground(winnerShape);
+    }
+
+    private void decrescDiagonalWinner(){
+        ImageButton ib1 = findViewById(R.id.imageButton2);
+        ImageButton ib2 = findViewById(R.id.imageButton4);
+        ImageButton ib3 = findViewById(R.id.imageButton6);
+        ib1.setForeground(winnerShape);
+        ib2.setForeground(winnerShape);
+        ib3.setForeground(winnerShape);
+    }
+
     public void play0(View view){
         ImageButton ib = findViewById(R.id.imageButton0);
         this.play(view, 0, ib);
@@ -221,12 +308,49 @@ public class MainActivity extends AppCompatActivity {
         else
             ib.setImageBitmap(BitmapFactory.decodeFile(selfieFile1.getAbsolutePath()));
 
-        currentPlayerId++;
-
         if(play == PlayState.Win){
-            alert("Parabeins", "era o mínimo né piá");
-            clearGame();
+            showWinner(game.winCondition);
+            anounceWinner();
+            //(new Handler()).postDelayed(this::anounceWinner, 3000);
+            //clear(view);
         }
+        else if (play == PlayState.Draw){
+            alert("Empate", "O jogo empatou.");
+            clear(view);
+        }
+
+        currentPlayerId++;
+    }
+
+    private void anounceWinner(){
+        int playerId = 1;
+        if (currentPlayerId % 2 == 0){
+            playerId = 2;
+        }
+        alert("Parabéns", String.format("Jogador "+ playerId +" venceu!"));
+    }
+
+    private void showWinner(WinCondition winCondition){
+    switch (winCondition){
+        case FirstLine: firstLineWinner();
+        break;
+        case SecondLine: secondLineWinner();
+        break;
+        case ThirdLine: thirdLineWinner();
+        break;
+        case FirstColumn: firstColumnWinner();
+        break;
+        case SecondColumn: secondColumnWinner();
+        break;
+        case ThirdColumn: thirdColumnWinner();
+        break;
+        case CrescDiagonal: crescDiagonalWinner();
+        break;
+        case DecrescDiagonal: decrescDiagonalWinner();
+        break;
+    }
+
+
     }
 
     private void alert(String titulo, String mensagem) {
@@ -252,22 +376,31 @@ public class MainActivity extends AppCompatActivity {
     {
         ImageButton ib0 = findViewById(R.id.imageButton0);
         ib0.setImageBitmap(null);
+        ib0.setForeground(null);
         ImageButton ib1 = findViewById(R.id.imageButton1);
         ib1.setImageBitmap(null);
+        ib1.setForeground(null);
         ImageButton ib2 = findViewById(R.id.imageButton2);
         ib2.setImageBitmap(null);
+        ib2.setForeground(null);
         ImageButton ib3 = findViewById(R.id.imageButton3);
         ib3.setImageBitmap(null);
+        ib3.setForeground(null);
         ImageButton ib4 = findViewById(R.id.imageButton4);
         ib4.setImageBitmap(null);
+        ib4.setForeground(null);
         ImageButton ib5 = findViewById(R.id.imageButton5);
         ib5.setImageBitmap(null);
+        ib5.setForeground(null);
         ImageButton ib6 = findViewById(R.id.imageButton6);
         ib6.setImageBitmap(null);
+        ib6.setForeground(null);
         ImageButton ib7 = findViewById(R.id.imageButton7);
         ib7.setImageBitmap(null);
+        ib7.setForeground(null);
         ImageButton ib8 = findViewById(R.id.imageButton8);
         ib8.setImageBitmap(null);
+        ib8.setForeground(null);
     }
 
     private void clearGame()

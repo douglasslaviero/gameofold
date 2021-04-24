@@ -2,7 +2,7 @@ package br.ucs.android.gameofold.model;
 
 public class TicTacToeGame {
     int[] board;
-
+    public WinCondition winCondition;
     public TicTacToeGame() {
         clearBoard();
     }
@@ -20,10 +20,23 @@ public class TicTacToeGame {
 
         if (verifyWin(playerId))
             return PlayState.Win;
+        
+        if (verifyDraw())
+            return PlayState.Draw;
+        
 
         return PlayState.Valid;
     }
 
+    private boolean verifyDraw(){
+        for (Integer item: board)
+        {
+            if (item == 0)
+                return false;
+        }
+        return true;
+    }
+    
     private boolean verifyWin(int player) {
         return verifyDiagonal(player) || verifyHorizontal(player) || verifyVertical(player);
     }
@@ -35,9 +48,23 @@ public class TicTacToeGame {
 
         String playerString = makeString(player);
 
-        return firstColumn.equals(playerString)
-                || secondColumn.equals(playerString)
-                || thirdColumn.equals(playerString);
+        if (firstColumn.equals(playerString))
+        {
+            winCondition = WinCondition.FirstColumn;
+            return true;
+        }
+        if (secondColumn.equals(playerString))
+        {
+            winCondition = WinCondition.SecondColumn;
+            return true;
+        }
+        if (thirdColumn.equals(playerString))
+        {
+            winCondition = WinCondition.ThirdColumn;
+            return true;
+        }
+
+        return false;
     }
 
     private Boolean verifyHorizontal(int player) {
@@ -47,9 +74,23 @@ public class TicTacToeGame {
 
         String playerString = makeString(player);
 
-        return firstLine.equals(playerString)
-                || secondLine.equals(playerString)
-                || thirdLine.equals(playerString);
+        if (firstLine.equals(playerString))
+        {
+            winCondition = WinCondition.FirstLine;
+            return true;
+        }
+        if (secondLine.equals(playerString))
+        {
+            winCondition = WinCondition.SecondLine;
+            return true;
+        }
+        if (thirdLine.equals(playerString))
+        {
+            winCondition = WinCondition.ThirdLine;
+            return true;
+        }
+
+        return false;
     }
 
     private Boolean verifyDiagonal(int player) {
@@ -58,8 +99,18 @@ public class TicTacToeGame {
 
         String playerString = makeString(player);
 
-        return crescDiagonal.equals(playerString)
-                || decrescDiagonal.equals(playerString);
+        if (crescDiagonal.equals(playerString))
+        {
+            winCondition = WinCondition.CrescDiagonal;
+            return true;
+        }
+        if (decrescDiagonal.equals(playerString))
+        {
+            winCondition = WinCondition.DecrescDiagonal;
+            return true;
+        }
+
+        return false;
     }
 
     private String makeString(int n) {
