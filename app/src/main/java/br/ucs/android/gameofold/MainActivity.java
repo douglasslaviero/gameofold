@@ -221,12 +221,12 @@ public class MainActivity extends AppCompatActivity {
         else
             ib.setImageBitmap(BitmapFactory.decodeFile(selfieFile1.getAbsolutePath()));
 
+        currentPlayerId++;
+
         if(play == PlayState.Win){
             alert("Parabeins", "era o mínimo né piá");
-            clear(view);
+            clearGame();
         }
-
-        currentPlayerId++;
     }
 
     private void alert(String titulo, String mensagem) {
@@ -268,5 +268,12 @@ public class MainActivity extends AppCompatActivity {
         ib7.setImageBitmap(null);
         ImageButton ib8 = findViewById(R.id.imageButton8);
         ib8.setImageBitmap(null);
+    }
+
+    private void clearGame()
+    {
+        currentPlayerId = 0;
+        game.clearBoard();
+        clearButtons();
     }
 }
