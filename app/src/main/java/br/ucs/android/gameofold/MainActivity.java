@@ -8,9 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,18 +15,15 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-
 import br.ucs.android.gameofold.model.PlayState;
 import br.ucs.android.gameofold.model.TicTacToeGame;
 import br.ucs.android.gameofold.model.WinCondition;
@@ -239,13 +233,13 @@ public class MainActivity extends AppCompatActivity {
         if (play == PlayState.Win) {
             showWinner(game.winCondition);
 
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    anounceWinner();
-                    clearGame();
-                }
-            }, 3000);
+            handler=new Handler();
+            Runnable r= () -> {
+                anounceWinner();
+                clearGame();
+            };
+            handler.postDelayed(r, 3000);
+
         } else if (play == PlayState.Draw) {
             alert("Empate", "O jogo empatou.");
             clearGame();
@@ -255,9 +249,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void anounceWinner() {
-        int playerId = 1;
+        int playerId = 2;
         if (currentPlayerId % 2 == 0) {
-            playerId = 2;
+            playerId = 1;
         }
         alert("Parabéns", String.format("Jogador " + playerId + " venceu!"));
     }
@@ -349,4 +343,7 @@ public class MainActivity extends AppCompatActivity {
         game.clearBoard();
         clearButtons();
     }
+
 }
+
+
