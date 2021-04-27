@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void clear(View view) {
         ImageButton ib1 = findViewById(R.id.player1ImgButton);
-        ib1.setImageBitmap(null);
+        ib1.setImageResource(R.drawable.player_1);
         ImageButton ib2 = findViewById(R.id.player2ImgButton);
-        ib2.setImageBitmap(null);
+        ib2.setImageResource(R.drawable.player_2);
 
         selfieFile1 = selfieFile2 = null;
         clearGame();
@@ -331,10 +331,10 @@ public class MainActivity extends AppCompatActivity {
             ib.setBackgroundColor(Color.WHITE);
         }
 
-        ImageButton player1 = findViewById(R.id.player2ImgButton);
+        ImageButton player1 = findViewById(R.id.player1ImgButton);
         player1.setBackgroundColor(Color.GRAY);
-        
-        ImageButton player2 = findViewById(R.id.player1ImgButton);
+
+        ImageButton player2 = findViewById(R.id.player2ImgButton);
         player2.setBackgroundColor(Color.GRAY);
     }
 

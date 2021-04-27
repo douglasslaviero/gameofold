@@ -166,6 +166,7 @@
                 android:background="#808080"
                 android:onClick="takeASelfie1"
                 android:padding="5dp"
+                android:src="@drawable/player_1"
                 android:scaleType="fitXY" />
 
             <ImageButton
@@ -178,6 +179,7 @@
                 android:background="#808080"
                 android:onClick="takeASelfie2"
                 android:padding="5dp"
+                android:src="@drawable/player_2"
                 android:scaleType="fitXY" />
 
             <Button
